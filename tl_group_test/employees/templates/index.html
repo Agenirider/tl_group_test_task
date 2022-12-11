@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>TEST TL GROUP TASK</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        function showTree(el) {
+            var ul_child = el.nextElementSibling;
+            if (ul_child.style.display !== 'none') {
+                ul_child.style.display = 'none';
+                el.textContent="-";
+                }
+            else {
+                ul_child.style.display = 'block';
+                el.textContent="+";
+            }
+        };
+    </script>
+</head>
+<style>
+    .treeline, .treeline ul, .treeline li {
+        margin: 0;
+        padding: 0;
+        line-height: 1.2;
+        list-style: none;
+    }
+
+    .treeline ul {
+        margin: 0 0 0 15px;
+    }
+
+    .treeline > li:not(:only-child), .treeline li li {
+        position: relative;
+        padding: 3px 0 0 20px;
+    }
+
+    .treeline li:not(:last-child) {
+        border-left: 1px solid #ccc;
+    }
+
+    .treeline li li:before, .treeline > li:not(:only-child):before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1.1em;
+        height: .7em;
+        border-bottom:1px solid #ccc;
+    }
+
+    .treeline li:last-child:before {
+        width: calc(1.1em - 1px);
+        border-left: 1px solid #ccc;
+    }
+</style>
+<body>
+    {{content}}
+</body>
+</html>

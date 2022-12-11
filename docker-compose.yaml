@@ -1,0 +1,69 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:5.7.22
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    volumes:
+        - mysql_data:/var/lib/mysql
+    expose:
+      - "3306"
+    networks:
+      - net
+    env_file:
+      - .env
+
+  tl_group_test:
+    env_file: .env
+    build: tl_group_test
+    command: /bin/sh /code/entrypoint.sh
+    container_name: tl_group_test
+    restart: unless-stopped
+    volumes:
+       - static_data:/vol/static
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    expose:
+      - "8000"
+    depends_on:
+      - redis
+      - mysql
+    networks:
+      - net
+
+  proxy:
+    container_name: proxy
+    restart: unless-stopped
+    build:
+      context: ./proxy
+    volumes:
+      - static_data:/vol/static
+    expose:
+      - "8000"
+    ports:
+      - '8000:8000'
+    networks:
+      - net
+
+  redis:
+    container_name: redis
+    build:
+      context: ./redis
+    restart: always
+    expose:
+      - "6379"
+    networks:
+      - net
+
+volumes:
+  static_data:
+  mysql_data:
+
+networks:
+  net:
+    driver: bridge
+
+

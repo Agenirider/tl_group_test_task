@@ -1,0 +1,12 @@
+# Django
+Django==3.2.8
+redis
+
+# WSGI
+gunicorn==20.1.0
+
+# Names employees generator
+names
+
+# DRF
+djangorestframework==3.13.1
